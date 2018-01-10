@@ -49,11 +49,16 @@ app.get('/api/albums', function album_index(req, res){
     });
 });
 
-app.post('/api/albums', function albumCreate(req, res) {
+app.post('/api/albums', function album_Create(req, res) {
   console.log('body', req.body);
-
+  db.Album.create({
+    artistName: req.body.artistName,
+    name: req.body.name,
+    releaseDate: req.body.releaseDate,
+    genres: req.body.genres
+  });
   
- 
+    res.json(req.body);
 
 
 });

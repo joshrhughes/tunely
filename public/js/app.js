@@ -22,27 +22,32 @@ $(document).ready(function() {
   //When Form Submits
   $('#newForm').on('submit', function(event){
     event.preventDefault();
+
     var formData = $(this).serialize();
     console.log("form data is " + $(this).serialize());
     console.log("the unserialzied data is " + this);
     console.log('formData', formData);
     $(this).trigger("reset");
+
+    $.ajax({
+      url: "/api/albums",
+      type:"POST",
+      data: formData,
+      // dataType: String
+    }).done(function(albums){
+      renderAlbum(albums);
+    });
+  
+
+    // $.post('/api/albums', formData, function(album){
+    //   console.log("hello");
+     
+    // })
+   // $(this).trigger("reset");
   });
-
-  // $('#album-form form').on('submit', function (e) {
-  //   e.preventDefault();
-  //   var formData = $(this).serialize();
-  //   console.log('formData', formData);
-  //   $.post('/api/albums', formData, function (album) {
-  //     console.log('album after POST', album);
-  //     renderAlbum(album);  //render the server's response
-  //   });
-  //   $(this).trigger("reset");
-  // });
-
 });
 
-
+function buildSongsHtml(songs) { }
 
 // this function takes a single album and renders it to the page
 function renderAlbum(album) {
@@ -71,6 +76,10 @@ function renderAlbum(album) {
   "                        <h4 class='inline-header'>Released date:</h4>" +
   "                        <span class='album-releaseDate'>" + album.releaseDate + "</span>" +
   "                      </li>" +
+  "                      <li class='list-group - item'>" +
+  "                       <h4 class='inline-header' > Songs:</h4>" +
+  "                       <span>	– (1) Famous – (2) All of the Lights – (3) Guilt Trip – (4) Paranoid – (5) Ultralight Beam – (6) Runaway – (7) Stronger – </span>" +
+  "                      </li >" +
   "                    </ul>" +
   "                  </div>" +
   "                </div>" +
